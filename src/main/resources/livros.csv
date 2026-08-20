@@ -1,0 +1,129 @@
+﻿titulo;autor;categoria;paginas;disponivel;preco
+O Hobbit;J.R.R. Tolkien;Fantasia;310;True;39.90
+O Senhor dos Anéis: A Sociedade do Anel;J.R.R. Tolkien;Fantasia;423;True;49.90
+O Senhor dos Anéis: As Duas Torres;J.R.R. Tolkien;Fantasia;352;True;47.90
+O Senhor dos Anéis: O Retorno do Rei;J.R.R. Tolkien;Fantasia;416;False;52.90
+Harry Potter e a Pedra Filosofal;J.K. Rowling;Fantasia;264;True;39.90
+Harry Potter e a Câmara Secreta;J.K. Rowling;Fantasia;288;True;42.90
+Harry Potter e o Prisioneiro de Azkaban;J.K. Rowling;Fantasia;348;False;44.90
+Harry Potter e o Cálice de Fogo;J.K. Rowling;Fantasia;584;True;49.90
+Harry Potter e a Ordem da Fênix;J.K. Rowling;Fantasia;766;False;54.90
+Harry Potter e o Enigma do Príncipe;J.K. Rowling;Fantasia;560;True;52.90
+Harry Potter e as Relíquias da Morte;J.K. Rowling;Fantasia;590;True;56.90
+O Nome do Vento;Patrick Rothfuss;Fantasia;656;True;59.90
+O Temor do Sábio;Patrick Rothfuss;Fantasia;960;False;69.90
+Mistborn: O Império Final;Brandon Sanderson;Fantasia;608;True;54.90
+O Caminho dos Reis;Brandon Sanderson;Fantasia;1248;False;79.90
+Duna;Frank Herbert;Ficção Científica;680;True;59.90
+Messias de Duna;Frank Herbert;Ficção Científica;336;True;44.90
+Filhos de Duna;Frank Herbert;Ficção Científica;496;False;49.90
+Fundação;Isaac Asimov;Ficção Científica;296;True;39.90
+Fundação e Império;Isaac Asimov;Ficção Científica;288;True;39.90
+Segunda Fundação;Isaac Asimov;Ficção Científica;256;False;37.90
+Eu, Robô;Isaac Asimov;Ficção Científica;320;True;42.90
+1984;George Orwell;Ficção Científica;328;True;34.90
+Admirável Mundo Novo;Aldous Huxley;Ficção Científica;312;False;37.90
+Fahrenheit 451;Ray Bradbury;Ficção Científica;216;True;32.90
+O Guia do Mochileiro das Galáxias;Douglas Adams;Ficção Científica;208;True;36.90
+Neuromancer;William Gibson;Ficção Científica;320;False;42.90
+Solaris;Stanislaw Lem;Ficção Científica;204;True;39.90
+A Máquina do Tempo;H.G. Wells;Ficção Científica;144;True;29.90
+Frankenstein;Mary Shelley;Terror;280;False;34.90
+Drácula;Bram Stoker;Terror;488;True;44.90
+O Iluminado;Stephen King;Terror;464;True;54.90
+It: A Coisa;Stephen King;Terror;1104;False;69.90
+Cemitério Maldito;Stephen King;Terror;424;True;49.90
+Misery;Stephen King;Terror;328;True;42.90
+O Exorcista;William Peter Blatty;Terror;336;False;39.90
+Coraline;Neil Gaiman;Terror;224;True;32.90
+A Assombração da Casa da Colina;Shirley Jackson;Terror;208;True;34.90
+O Chamado de Cthulhu;H.P. Lovecraft;Terror;128;False;27.90
+Dom Casmurro;Machado de Assis;Clássico;256;True;24.90
+Memórias Póstumas de Brás Cubas;Machado de Assis;Clássico;224;True;26.90
+Quincas Borba;Machado de Assis;Clássico;288;False;27.90
+O Cortiço;Aluísio Azevedo;Clássico;240;True;24.90
+Iracema;José de Alencar;Clássico;144;True;19.90
+O Guarani;José de Alencar;Clássico;336;False;29.90
+Senhora;José de Alencar;Clássico;208;True;24.90
+Grande Sertão: Veredas;João Guimarães Rosa;Clássico;624;False;49.90
+Vidas Secas;Graciliano Ramos;Clássico;176;True;22.90
+Capitães da Areia;Jorge Amado;Clássico;280;True;29.90
+Memórias de um Sargento de Milícias;Manuel Antônio de Almeida;Clássico;192;False;24.90
+A Hora da Estrela;Clarice Lispector;Drama;96;True;22.90
+Perto do Coração Selvagem;Clarice Lispector;Drama;192;True;27.90
+Domingo;José de Alencar;Drama;176;False;21.90
+Hamlet;William Shakespeare;Drama;224;True;29.90
+Romeu e Julieta;William Shakespeare;Drama;160;True;24.90
+Macbeth;William Shakespeare;Drama;192;False;26.90
+Otelo;William Shakespeare;Drama;208;True;27.90
+Rei Lear;William Shakespeare;Drama;224;False;28.90
+O Auto da Compadecida;Ariano Suassuna;Drama;208;True;29.90
+Ensaio sobre a Cegueira;José Saramago;Drama;312;False;42.90
+O Velho e o Mar;Ernest Hemingway;Drama;128;True;24.90
+A Metamorfose;Franz Kafka;Drama;104;True;19.90
+Crime e Castigo;Fiódor Dostoiévski;Clássico;592;False;44.90
+Os Irmãos Karamázov;Fiódor Dostoiévski;Clássico;816;True;59.90
+Noites Brancas;Fiódor Dostoiévski;Clássico;128;True;22.90
+Anna Kariênina;Liev Tolstói;Romance;864;False;59.90
+Guerra e Paz;Liev Tolstói;Clássico;1216;True;79.90
+Madame Bovary;Gustave Flaubert;Romance;336;True;34.90
+Os Miseráveis;Victor Hugo;Clássico;1512;False;69.90
+O Conde de Monte Cristo;Alexandre Dumas;Aventura;1248;True;64.90
+Os Três Mosqueteiros;Alexandre Dumas;Aventura;672;True;49.90
+As Aventuras de Tom Sawyer;Mark Twain;Aventura;224;False;27.90
+As Aventuras de Huckleberry Finn;Mark Twain;Aventura;320;True;32.90
+A Ilha do Tesouro;Robert Louis Stevenson;Aventura;240;True;29.90
+Robinson Crusoé;Daniel Defoe;Aventura;320;False;31.90
+Viagem ao Centro da Terra;Júlio Verne;Aventura;288;True;34.90
+Vinte Mil Léguas Submarinas;Júlio Verne;Aventura;384;True;39.90
+A Volta ao Mundo em 80 Dias;Júlio Verne;Aventura;272;False;32.90
+As Aventuras de Sherlock Holmes;Arthur Conan Doyle;Mistério;307;True;34.90
+O Cão dos Baskervilles;Arthur Conan Doyle;Mistério;256;True;32.90
+Assassinato no Expresso do Oriente;Agatha Christie;Mistério;256;False;39.90
+E Não Sobrou Nenhum;Agatha Christie;Mistério;272;True;42.90
+Morte no Nilo;Agatha Christie;Mistério;288;True;39.90
+O Assassinato de Roger Ackroyd;Agatha Christie;Mistério;288;False;41.90
+A Garota no Trem;Paula Hawkins;Mistério;378;True;44.90
+O Silêncio dos Inocentes;Thomas Harris;Mistério;352;False;47.90
+O Código Da Vinci;Dan Brown;Mistério;432;True;49.90
+Anjos e Demônios;Dan Brown;Mistério;480;True;47.90
+Orgulho e Preconceito;Jane Austen;Romance;432;True;34.90
+Razão e Sensibilidade;Jane Austen;Romance;352;False;32.90
+Persuasão;Jane Austen;Romance;256;True;29.90
+Jane Eyre;Charlotte Brontë;Romance;532;True;39.90
+O Morro dos Ventos Uivantes;Emily Brontë;Romance;416;False;37.90
+Como Eu Era Antes de Você;Jojo Moyes;Romance;320;True;39.90
+A Culpa é das Estrelas;John Green;Romance;288;True;34.90
+Quem é Você, Alasca?;John Green;Romance;240;False;29.90
+O Sol é Para Todos;Harper Lee;Drama;352;True;39.90
+A Menina que Roubava Livros;Markus Zusak;Drama;480;True;44.90
+O Diário de Anne Frank;Anne Frank;Biografia;352;False;34.90
+Steve Jobs;Walter Isaacson;Biografia;656;True;59.90
+Einstein: Sua Vida, Seu Universo;Walter Isaacson;Biografia;704;True;64.90
+Longa Caminhada até a Liberdade;Nelson Mandela;Biografia;768;False;54.90
+Sapiens;Yuval Noah Harari;História;464;True;49.90
+Homo Deus;Yuval Noah Harari;História;448;True;47.90
+Uma Breve História do Tempo;Stephen Hawking;Ciência;256;False;39.90
+O Universo Numa Casca de Noz;Stephen Hawking;Ciência;216;True;42.90
+Cosmos;Carl Sagan;Ciência;368;True;49.90
+Pálido Ponto Azul;Carl Sagan;Ciência;496;False;54.90
+Astrofísica para Apressados;Neil deGrasse Tyson;Ciência;192;True;39.90
+O Gene: Uma História Íntima;Siddhartha Mukherjee;Ciência;608;True;59.90
+O Poder do Hábito;Charles Duhigg;Desenvolvimento;408;False;42.90
+Hábitos Atômicos;James Clear;Desenvolvimento;320;True;49.90
+Essencialismo;Greg McKeown;Desenvolvimento;272;True;39.90
+Mindset;Carol S. Dweck;Desenvolvimento;312;False;37.90
+Como Fazer Amigos e Influenciar Pessoas;Dale Carnegie;Desenvolvimento;288;True;34.90
+Pai Rico, Pai Pobre;Robert Kiyosaki;Finanças;336;True;39.90
+O Homem Mais Rico da Babilônia;George S. Clason;Finanças;160;False;29.90
+A Psicologia Financeira;Morgan Housel;Finanças;304;True;44.90
+Do Mil ao Milhão;Thiago Nigro;Finanças;192;True;42.90
+O Investidor Inteligente;Benjamin Graham;Finanças;640;False;59.90
+Código Limpo;Robert C. Martin;Tecnologia;464;True;89.90
+Entendendo Algoritmos;Aditya Bhargava;Tecnologia;264;True;69.90
+Java Efetivo;Joshua Bloch;Tecnologia;416;False;99.90
+Use a Cabeça! Java;Kathy Sierra;Tecnologia;720;True;94.90
+Spring in Action;Craig Walls;Tecnologia;520;True;109.90
+O Programador Pragmático;Andrew Hunt;Tecnologia;352;False;84.90
+Refatoração;Martin Fowler;Tecnologia;448;True;89.90
+Padrões de Projeto;Erich Gamma;Tecnologia;416;True;79.90
