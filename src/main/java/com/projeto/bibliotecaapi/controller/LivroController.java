@@ -1,12 +1,9 @@
 package com.projeto.bibliotecaapi.controller;
 
-import com.projeto.bibliotecaapi.dto.*;
-import com.projeto.bibliotecaapi.dto.ResponseMap.ResponseQuatidadeLivroAutor;
-import com.projeto.bibliotecaapi.dto.ResponseMap.ResponseQuatidadeLivrosCategory;
+import com.projeto.bibliotecaapi.dto.livroCrudDTO.*;
 import com.projeto.bibliotecaapi.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,19 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/api/v1/livros")
+@RequestMapping(value = "/api/v2/livros")
 public class LivroController {
 
     @Autowired
     private  LivroService service;
 
-    /*
+
     @GetMapping
     public ResponseEntity<List<ResponseLivroDTO>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
-     */
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ResponseLivroIdDTO> findById(@PathVariable Long id){
@@ -38,6 +35,7 @@ public class LivroController {
     public ResponseEntity<ResponseLivroIdDTO> create(@Valid @RequestBody CreateLivroDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
+
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ResponseLivroDTO> update(@PathVariable Long id, @RequestBody UpdateLivroDTO dto){
@@ -68,7 +66,7 @@ public class LivroController {
     public ResponseEntity<List<ResponseLivroIdDTO>> findByAvailable(){
         return  ResponseEntity.ok().body(service.findByAvailable());
     }
-
+ /*
     //Paginação e ordenação simples
 
     @GetMapping
@@ -135,4 +133,6 @@ public class LivroController {
     public ResponseEntity<List<ResponseLivroIdDTO>> precoOrder(){
         return ResponseEntity.ok(service.precoOrder());
     }
+
+     */
 }

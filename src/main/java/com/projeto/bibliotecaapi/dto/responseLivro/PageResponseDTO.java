@@ -1,4 +1,4 @@
-package com.projeto.bibliotecaapi.dto;
+package com.projeto.bibliotecaapi.dto.responseLivro;
 
 import java.util.List;
 

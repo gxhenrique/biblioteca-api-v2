@@ -1,9 +1,6 @@
 package com.projeto.bibliotecaapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -20,10 +17,15 @@ public class Livro {
 
     @NotBlank(message = "titulo obrigatorio")
     private String titulo;
-    @NotBlank(message = "autor obrigatorio")
-    private String autor;
-    @NotBlank(message = "categoria obrigatorio")
-    private String categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     @Positive
     private Integer paginas;
 
@@ -35,7 +37,7 @@ public class Livro {
 
     }
 
-    public Livro(Long id, String titulo, String autor, String categoria, Integer paginas, Boolean disponivel, BigDecimal preco) {
+    public Livro(Long id, String titulo, Autor autor, Categoria categoria, Integer paginas, Boolean disponivel, BigDecimal preco) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -61,19 +63,19 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

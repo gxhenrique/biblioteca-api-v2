@@ -1,4 +1,4 @@
-package com.projeto.bibliotecaapi.dto;
+package com.projeto.bibliotecaapi.dto.livroCrudDTO;
 
 import java.math.BigDecimal;
 
