@@ -1,6 +1,7 @@
 package com.projeto.bibliotecaapi.service;
 
 import com.projeto.bibliotecaapi.dto.livroCrudDTO.*;
+import com.projeto.bibliotecaapi.dto.responseLivro.*;
 import com.projeto.bibliotecaapi.entity.Autor;
 import com.projeto.bibliotecaapi.entity.Categoria;
 import com.projeto.bibliotecaapi.entity.Livro;
@@ -9,10 +10,17 @@ import com.projeto.bibliotecaapi.repository.CategoriaRepository;
 import com.projeto.bibliotecaapi.repository.LivroRepository;
 import com.projeto.bibliotecaapi.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LivroService {
@@ -27,13 +35,15 @@ public class LivroService {
     private CategoriaRepository categoriaRepository;
 
     // 1. CRUD de livros
-
+    /*
     public List<ResponseLivroDTO> findAll(){
         return livroRepository.findAll().stream()
                 .map(livro -> new ResponseLivroDTO(livro.getTitulo(),
                         livro.getAutor().getNome(), livro.getCategoria().getNome(),
                         livro.getPaginas(), livro.getDisponivel(),livro.getPreco())).toList();
     }
+
+     */
 
 
 
@@ -143,7 +153,7 @@ public class LivroService {
 
 
     }
-/*
+
     //Paginação e ordenação simples
 
     public PageResponseDTO<ResponseLivroIdDTO> pagination(Pageable pageable){
@@ -151,7 +161,7 @@ public class LivroService {
 
         List<ResponseLivroIdDTO> content = pages.getContent().stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
         return new PageResponseDTO<>(
@@ -176,7 +186,7 @@ public class LivroService {
     public List<ResponseLivroIdDTO> listBooksMorePages(){
         return livroRepository.findAll().stream().filter(livro -> livro.getPaginas() > 500)
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
     }
 
@@ -185,16 +195,16 @@ public class LivroService {
         return livroRepository.findAll().stream()
                 .filter(livro -> livro.getPreco().compareTo(BigDecimal.valueOf(40)) > 0)
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
     }
 
     public List<ResponseLivroIdDTO> listBooksAvailableAndFantasy(){
         return livroRepository.findAll().stream()
-                .filter(livro -> livro.getDisponivel().equals(true) && "Fantasia".equals(livro.getDisponivel()))
+                .filter(livro -> livro.getDisponivel().equals(true) && livro.getCategoria().getNome().equals("Fantasia"))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
     }
 
@@ -202,7 +212,7 @@ public class LivroService {
         return livroRepository.findAll().stream()
                 .max(Comparator.comparing(Livro::getPreco))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .orElseThrow(() -> new EntityNotFoundException("Livro mais caro não encontrado..."));
     }
@@ -211,7 +221,7 @@ public class LivroService {
         return livroRepository.findAll().stream()
                 .min(Comparator.comparing(Livro::getPreco))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .orElseThrow(() -> new EntityNotFoundException("Livro mais barato não encontrado..."));
     }
@@ -245,7 +255,7 @@ public class LivroService {
     public List<ResponseQuatidadeLivroAutor> quatidadeLivroAutor(){
 
         Map<String,Long> quatidade = livroRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Livro::getAutor, Collectors.counting()));
+                .collect(Collectors.groupingBy(livro -> livro.getAutor().getNome(), Collectors.counting()));
 
         return quatidade.entrySet().stream()
                 .map(entry ->
@@ -256,7 +266,7 @@ public class LivroService {
 
     public List<ResponseQuatidadeLivrosCategory> quatidadeLivrosCategory(){
         Map<String,Long> quatidade = livroRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Livro::getCategoria, Collectors.counting()));
+                .collect(Collectors.groupingBy(categoria -> categoria.getCategoria().getNome(), Collectors.counting()));
 
         return quatidade.entrySet().stream()
                 .map(
@@ -265,9 +275,10 @@ public class LivroService {
     }
 
     public List<ResponseQuatidadeLivrosCategory> quatidadeDisponivelCategory(){
+
         Map<String, Long> quatidade = livroRepository.findAll().stream()
                 .filter(livro -> livro.getDisponivel().equals(true))
-                .collect(Collectors.groupingBy(Livro::getCategoria, Collectors.counting()));
+                .collect(Collectors.groupingBy(categoria -> categoria.getCategoria().getNome(), Collectors.counting()));
 
         return quatidade.entrySet().stream()
                 .map(
@@ -278,7 +289,7 @@ public class LivroService {
     public List<ResponseQuatidadeLivroAutor> top3AutorLivros(){
 
         Map<String,Long> top3 = livroRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Livro::getAutor, Collectors.counting()));
+                .collect(Collectors.groupingBy(autor -> autor.getAutor().getNome(), Collectors.counting()));
 
        return top3.entrySet().stream()
                .sorted(Comparator.comparing((Map.Entry<String,Long> teste) -> teste.getValue())
@@ -295,7 +306,7 @@ public class LivroService {
                 .filter(livro -> livro.getDisponivel().equals(true))
                 .sorted(Comparator.comparing(Livro::getPreco).reversed())
                 .map(livro -> new ResponseLivroIdDTO(
-                    livro.getId(),livro.getTitulo(),livro.getAutor(),livro.getCategoria(),livro.getPaginas(),
+                    livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
                     livro.getDisponivel(), livro.getPreco())).toList();
     }
 
@@ -304,7 +315,6 @@ public class LivroService {
 
 
 
-     */
 
 
 

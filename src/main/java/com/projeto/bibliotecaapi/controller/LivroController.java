@@ -1,9 +1,11 @@
 package com.projeto.bibliotecaapi.controller;
 
 import com.projeto.bibliotecaapi.dto.livroCrudDTO.*;
+import com.projeto.bibliotecaapi.dto.responseLivro.*;
 import com.projeto.bibliotecaapi.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,13 @@ public class LivroController {
     @Autowired
     private  LivroService service;
 
-
+    /*
     @GetMapping
     public ResponseEntity<List<ResponseLivroDTO>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
+
+     */
 
 
 
@@ -66,7 +70,7 @@ public class LivroController {
     public ResponseEntity<List<ResponseLivroIdDTO>> findByAvailable(){
         return  ResponseEntity.ok().body(service.findByAvailable());
     }
- /*
+
     //Paginação e ordenação simples
 
     @GetMapping
@@ -134,5 +138,5 @@ public class LivroController {
         return ResponseEntity.ok(service.precoOrder());
     }
 
-     */
+
 }
