@@ -46,17 +46,19 @@ public class DataLoader implements CommandLineRunner {
             String[] dados = linha.split(";");
 
             Autor autor = buscarOuCriarAutor(dados[1]);
-
             Categoria categoria = buscarOuCriarCategoria(dados[2]);
+
+
 
             Livro livro = new Livro();
 
             livro.setTitulo(dados[0]);
-            livro.setAutor(autor);
-            livro.setCategoria(categoria);
+            livro.setAutor(autor.getId());
+            livro.setCategoria(categoria.getId());
             livro.setPaginas(Integer.parseInt(dados[3]));
             livro.setDisponivel(Boolean.parseBoolean(dados[4]));
             livro.setPreco(new BigDecimal(dados[5]));
+
 
             livroRepository.save(livro);
 

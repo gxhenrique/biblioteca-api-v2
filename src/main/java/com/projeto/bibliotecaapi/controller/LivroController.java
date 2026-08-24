@@ -34,7 +34,7 @@ public class LivroController {
     public ResponseEntity<ResponseLivroIdDTO> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(service.findById(id));
     }
-
+    /*
     @PostMapping
     public ResponseEntity<ResponseLivroIdDTO> create(@Valid @RequestBody CreateLivroDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
@@ -109,6 +109,11 @@ public class LivroController {
         return ResponseEntity.ok(service.booksTotal());
     }
 
+    @GetMapping(value = "/bookGreaterThan")
+    public ResponseEntity<ResponseLivroIdDTO> bookGreaterThan(){
+        return ResponseEntity.ok(service.bookGreaterThan());
+    }
+
     // com Map
 
     @GetMapping(value = "/quantidadeLivrosAutor")
@@ -137,6 +142,8 @@ public class LivroController {
     public ResponseEntity<List<ResponseLivroIdDTO>> precoOrder(){
         return ResponseEntity.ok(service.precoOrder());
     }
+
+     */
 
 
 }
