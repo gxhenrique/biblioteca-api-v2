@@ -47,52 +47,53 @@ public class LivroService {
      */
 
 
-
-    public ResponseLivroIdDTO findById(Long id){
+    public ResponseLivroIdDTO findById(Long id) {
 
 
         return livroRepository.findById(id)
-                .map(livro -> new ResponseLivroIdDTO(livro.getId(),livro.getTitulo(),
+                .map(livro -> new ResponseLivroIdDTO(livro.getId(), livro.getTitulo(),
                         livro.getAutor().getNome(), livro.getCategoria().getNome(),
-                        livro.getPaginas(), livro.getDisponivel(),livro.getPreco())).orElseThrow(() ->
+                        livro.getPaginas(), livro.getDisponivel(), livro.getPreco())).orElseThrow(() ->
                         new EntityNotFoundException("Entity not found " + "id: " + id));
     }
 
-    public ResponseLivroIdDTO create(CreateLivroDTO dto){
-         Livro livro =  livroCreated(dto);
-         livroRepository.save(livro);
-         return new ResponseLivroIdDTO(livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
-         livro.getDisponivel(), livro.getPreco());
+    public ResponseLivroIdDTO create(CreateLivroDTO dto) {
+        Livro livro = livroCreated(dto);
+        livroRepository.save(livro);
+        return new ResponseLivroIdDTO(livro.getId(),
+                livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
+                livro.getDisponivel(), livro.getPreco());
     }
 
-    private  Livro livroCreated(CreateLivroDTO dto){
-        Boolean disponivel = true;
+    private Livro livroCreated(CreateLivroDTO dto) {
         Livro livro = new Livro();
 
 
-        Optional<Autor> autor = autorRepository.findByNome(dto.autor());
-        Optional<Categoria> categoria = categoriaRepository.findByNome(dto.categoria());
+        Autor autor = autorRepository.findById(dto.autorId())
+                .orElseThrow(() -> new EntityNotFoundException("Autor não encotrado"));
 
-        livro.setAutor(autor.get());
-        livro.setCategoria(categoria.get());
+        Categoria categoria = categoriaRepository.findById(dto.categoriaId())
+                .orElseThrow(() -> new EntityNotFoundException("Categoria não encotrado"));
+
+        livro.setAutor(autor);
+        livro.setCategoria(categoria);
 
         livro.setTitulo(dto.titulo());
-        livro.setDisponivel(disponivel);
+        livro.setDisponivel(true);
         livro.setPaginas(dto.paginas());
         livro.setPreco(dto.preco());
 
         return livro;
     }
 
-    public ResponseLivroDTO update(Long id, UpdateLivroDTO dto){
+    public ResponseLivroDTO update(Long id, UpdateLivroDTO dto) {
         Livro entity = livroRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
         updateLivro(entity, dto);
         livroRepository.save(entity);
 
-        return new ResponseLivroDTO(entity.getTitulo(),entity.getAutor().getNome(),entity.getCategoria().getNome(),entity.getPaginas(),
-                entity.getDisponivel(),entity.getPreco());
+        return new ResponseLivroDTO(entity.getTitulo(), entity.getAutor().getNome(), entity.getCategoria().getNome(), entity.getPaginas(),
+                entity.getDisponivel(), entity.getPreco());
     }
-
 
 
     private void updateLivro(Livro entity, UpdateLivroDTO dto) {
@@ -108,72 +109,73 @@ public class LivroService {
         entity.setDisponivel(dto.disponivel());
     }
 
-    public DeleteLivroDTO delete(Long id){
+    public DeleteLivroDTO delete(Long id) {
         Livro livro = livroRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
         livroRepository.delete(livro);
 
-        return  new DeleteLivroDTO("Livro deletado com sucesso...");
+        return new DeleteLivroDTO("Livro deletado com sucesso...");
     }
 
     //Consultas básicas
 
-    public ResponseLivroIdDTO findByNameLivro(String titulo){
+    public ResponseLivroIdDTO findByNameLivro(String titulo) {
 
         return livroRepository.findByTituloIgnoreCase(titulo)
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
     }
 
 
-
-    public List<ResponseLivroIdDTO> findByCategory(String categoria){
+    public List<ResponseLivroIdDTO> findByCategory(String categoria) {
         List<Livro> livros = livroRepository.findByCategoriaNomeIgnoreCase(categoria);
-        if(livros.isEmpty()){
+        if (livros.isEmpty()) {
             throw new EntityNotFoundException("Categoria não encontrada " + categoria);
         }
         return livros.stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .toList();
 
     }
 
-    public List<ResponseLivroIdDTO> findByAuthor(String autor){
+    public List<ResponseLivroIdDTO> findByAuthor(String autor) {
 
         List<Livro> livros = livroRepository.findByAutorNomeIgnoreCase(autor);
 
-        if(livros.isEmpty()){
+        if (livros.isEmpty()) {
             throw new EntityNotFoundException("Autor não encontrado" + autor);
         }
 
         return livros.stream()
                 .filter(byAuthor -> byAuthor.getAutor().getNome().equalsIgnoreCase(autor))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
     }
 
-    public List<ResponseLivroIdDTO> findByAvailable(){
+    public List<ResponseLivroIdDTO> findByAvailable() {
         return livroRepository.buscarPorDispovivel().stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
 
     }
 
-    //Paginação e ordenação simples
 
-    public PageResponseDTO<ResponseLivroIdDTO> pagination(Pageable pageable){
+    // paginação
+
+    public PageResponseDTO<ResponseLivroIdDTO> pagination(Pageable pageable) {
         Page<Livro> pages = livroRepository.findAll(pageable);
 
         List<ResponseLivroIdDTO> content = pages.getContent().stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(),
+                        livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
         return new PageResponseDTO<>(
@@ -184,34 +186,34 @@ public class LivroService {
                 pages.getTotalPages()
         );
 
-        
+
     }
 
     //com Streams
 
 
-    public List<ResponseTituloDTO> listTitle(){
+    public List<ResponseTituloDTO> listTitle() {
         List<Livro> livros = livroRepository.findAll();
         return livros.stream().map(livro -> new ResponseTituloDTO(livro.getTitulo())).toList();
     }
 
-    public List<ResponseLivroIdDTO> listBooksMorePages(){
+    public List<ResponseLivroIdDTO> listBooksMorePages() {
         return livroRepository.findByPaginasGreaterThan(500).stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
     }
 
-    public List<ResponseLivroIdDTO> listBooksPrice(){
+    public List<ResponseLivroIdDTO> listBooksPrice() {
 
         return livroRepository.findByPrecoGreaterThan(BigDecimal.valueOf(90)).stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
 
     }
 
-    public List<ResponseLivroIdDTO> listBooksAvailableAndFantasy(){
+    public List<ResponseLivroIdDTO> listBooksAvailableAndFantasy() {
 
         /*
         return livroRepository.findAll().stream()
@@ -222,51 +224,51 @@ public class LivroService {
 
          */
 
-        return  livroRepository.listaLivroDisponiveisFantasia().stream()
+        return livroRepository.listaLivroDisponiveisFantasia().stream()
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor()
-                        .getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor()
+                        .getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco())).toList();
     }
 
-    public ResponseLivroIdDTO bookGreaterThan(){
+    public ResponseLivroIdDTO bookGreaterThan() {
 
         return livroRepository.findAll().stream()
                 .max(Comparator.comparing(Livro::getPreco))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .orElseThrow(() -> new EntityNotFoundException("Livro mais caro não encontrado..."));
     }
 
-    public ResponseLivroIdDTO bookCheaper(){
+    public ResponseLivroIdDTO bookCheaper() {
         return livroRepository.findAll().stream()
                 .min(Comparator.comparing(Livro::getPreco))
                 .map(livro -> new ResponseLivroIdDTO(
-                        livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
+                        livro.getId(), livro.getTitulo(), livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
                         livro.getDisponivel(), livro.getPreco()))
                 .orElseThrow(() -> new EntityNotFoundException("Livro mais barato não encontrado..."));
     }
 
     public ResponseAveragePrice booksAveragePrice() {
 
-       BigDecimal soma = BigDecimal.ZERO;
-       List<Livro> list = livroRepository.findAll();
+        BigDecimal soma = BigDecimal.ZERO;
+        List<Livro> list = livroRepository.findAll();
 
-       for(Livro livro : list){
-           soma = soma.add(livro.getPreco());
-       }
+        for (Livro livro : list) {
+            soma = soma.add(livro.getPreco());
+        }
 
-       BigDecimal media = soma.divide(
-               BigDecimal.valueOf(list.size()),
-               2,
-               RoundingMode.HALF_UP
-       );
+        BigDecimal media = soma.divide(
+                BigDecimal.valueOf(list.size()),
+                2,
+                RoundingMode.HALF_UP
+        );
 
         return new ResponseAveragePrice(media);
     }
 
-    public ResponseTotalQuantity booksTotal(){
+    public ResponseTotalQuantity booksTotal() {
         Long total = livroRepository.findAll().stream().count();
         return new ResponseTotalQuantity(total);
     }
@@ -274,9 +276,9 @@ public class LivroService {
 
     // com Map
 
-    public List<ResponseQuatidadeLivroAutor> quatidadeLivroAutor(){
+    public List<ResponseQuatidadeLivroAutor> quatidadeLivroAutor() {
 
-        Map<String,Long> quatidade = livroRepository.findAll().stream()
+        Map<String, Long> quatidade = livroRepository.findAll().stream()
                 .collect(Collectors.groupingBy(livro -> livro.getAutor().getNome(), Collectors.counting()));
 
         return quatidade.entrySet().stream()
@@ -286,8 +288,8 @@ public class LivroService {
 
     }
 
-    public List<ResponseQuatidadeLivrosCategory> quatidadeLivrosCategory(){
-        Map<String,Long> quatidade = livroRepository.findAll().stream()
+    public List<ResponseQuatidadeLivrosCategory> quatidadeLivrosCategory() {
+        Map<String, Long> quatidade = livroRepository.findAll().stream()
                 .collect(Collectors.groupingBy(categoria -> categoria.getCategoria().getNome(), Collectors.counting()));
 
         return quatidade.entrySet().stream()
@@ -296,7 +298,7 @@ public class LivroService {
                 .toList();
     }
 
-    public List<ResponseQuatidadeLivrosCategory> quatidadeDisponivelCategory(){
+    public List<ResponseQuatidadeLivrosCategory> quatidadeDisponivelCategory() {
         /*
         Map<String, Long> quatidade = livroRepository.findAll().stream()
                 .filter(livro -> livro.getDisponivel().equals(true))
@@ -309,13 +311,13 @@ public class LivroService {
 
          */
         return livroRepository.quantidadeLivrosDisponiveisPorCategoria().stream()
-                .map( resultado ->
+                .map(resultado ->
                         new ResponseQuatidadeLivrosCategory((String) resultado[0], (Long) resultado[1])).toList();
 
 
     }
 
-    public List<ResponseQuatidadeLivroAutor> top3AutorLivros(){
+    public List<ResponseQuatidadeLivroAutor> top3AutorLivros() {
         /*
         Map<String,Long> top3 = livroRepository.findAll().stream()
                 .collect(Collectors.groupingBy(autor -> autor.getAutor().getNome(), Collectors.counting()));
@@ -327,7 +329,7 @@ public class LivroService {
 
 
          */
-        Pageable pageable = PageRequest.of(0,3);
+        Pageable pageable = PageRequest.of(0, 3);
 
         return livroRepository.top3AutoresComMaisLivros(pageable).stream()
                 .map(resultado -> new ResponseQuatidadeLivroAutor(
@@ -339,23 +341,51 @@ public class LivroService {
 
     //combinando operações
 
-    public List<ResponseLivroIdDTO> precoOrder(){
-       return livroRepository.findAll().stream()
+    public List<ResponseLivroIdDTO> precoOrder() {
+        return livroRepository.findAll().stream()
                 .filter(livro -> livro.getDisponivel().equals(true))
                 .sorted(Comparator.comparing(Livro::getPreco).reversed())
                 .map(livro -> new ResponseLivroIdDTO(
-                    livro.getId(),livro.getTitulo(),livro.getAutor().getNome(),livro.getCategoria().getNome(),livro.getPaginas(),
-                    livro.getDisponivel(), livro.getPreco())).toList();
+                        livro.getId(), livro.getTitulo(),
+                        livro.getAutor().getNome(), livro.getCategoria().getNome(), livro.getPaginas(),
+                        livro.getDisponivel(), livro.getPreco())).toList();
+    }
+
+    // paginação
+
+    public PageResponseDTO<ResponseLivroIdDTO> findByCategoriaId(Long id, Pageable pageable){
+        Page<Livro> pages = livroRepository.findByCategoriaId(id, pageable);
+
+        List<ResponseLivroIdDTO>livros = pages.getContent().stream().map(
+                livro -> new ResponseLivroIdDTO(
+                        livro.getId(),
+                        livro.getTitulo(),
+                        livro.getAutor().getNome(),
+                        livro.getCategoria().getNome(),
+                        livro.getPaginas(),
+                        livro.getDisponivel(),
+                        livro.getPreco()
+                )
+        ).toList();
+
+        return new PageResponseDTO<>(
+                livros,
+                pages.getNumber(),
+                pages.getSize(),
+                pages.getTotalElements(),
+                pages.getTotalPages()
+        );
     }
 
 
 
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+

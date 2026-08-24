@@ -1,6 +1,7 @@
 package com.projeto.bibliotecaapi.repository;
 
 import com.projeto.bibliotecaapi.entity.Livro;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,7 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
    List<Livro> findByAutorNomeIgnoreCase(String autor);
    List<Livro> findByCategoriaNomeIgnoreCase(String categoria);
    List<Livro> findByPrecoGreaterThan(BigDecimal preco);
+   Page<Livro> findByCategoriaId(Long categoriaId, Pageable pageable);
 
    @Query("Select l from Livro l where l.disponivel = true")
    List<Livro> buscarPorDispovivel();

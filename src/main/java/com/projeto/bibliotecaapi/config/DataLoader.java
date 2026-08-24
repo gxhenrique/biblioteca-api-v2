@@ -53,8 +53,8 @@ public class DataLoader implements CommandLineRunner {
             Livro livro = new Livro();
 
             livro.setTitulo(dados[0]);
-            livro.setAutor(autor.getId());
-            livro.setCategoria(categoria.getId());
+            livro.setAutor(autor);
+            livro.setCategoria(categoria);
             livro.setPaginas(Integer.parseInt(dados[3]));
             livro.setDisponivel(Boolean.parseBoolean(dados[4]));
             livro.setPreco(new BigDecimal(dados[5]));

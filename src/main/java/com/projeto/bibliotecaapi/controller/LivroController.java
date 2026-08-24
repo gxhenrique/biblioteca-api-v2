@@ -34,7 +34,7 @@ public class LivroController {
     public ResponseEntity<ResponseLivroIdDTO> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(service.findById(id));
     }
-    /*
+
     @PostMapping
     public ResponseEntity<ResponseLivroIdDTO> create(@Valid @RequestBody CreateLivroDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
@@ -136,14 +136,21 @@ public class LivroController {
         return ResponseEntity.ok(service.top3AutorLivros());
     }
 
-    //combinando operações
 
     @GetMapping(value = "/precoOrder")
     public ResponseEntity<List<ResponseLivroIdDTO>> precoOrder(){
         return ResponseEntity.ok(service.precoOrder());
     }
 
-     */
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<PageResponseDTO<ResponseLivroIdDTO>> buscarPorCategoria(
+            @PathVariable Long id,
+            Pageable pageable) {
+
+        return ResponseEntity.ok(service.findByCategoriaId(id, pageable));
+    }
+
+
 
 
 }
